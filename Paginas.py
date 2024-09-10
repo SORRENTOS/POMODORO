@@ -1,7 +1,7 @@
 import flet as ft
 from clases import *
 
-from firebase import *
+#from firebase import *
 
 
 
