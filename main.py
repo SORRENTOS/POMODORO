@@ -5,7 +5,7 @@ from firebase import *
 
 
  #sound = AudioSegment.from_file("assets/ding.wav")
-sonido = ft.Audio(src = "/home/benjamin/Escritorio/pruebasFlet/app/assets/ding.mp3")
+sonido = ft.Audio(src = "assets/ding.mp3")
 trabajando = True
 def DetenerPomodoro(timer):
         print("DETENIENDO POMODORO")
