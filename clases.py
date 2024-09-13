@@ -46,8 +46,11 @@ class Tarea(ft.Column):
         self.btn = ft.IconButton(icon= ft.icons.EDIT,on_click=self.btn_edit_tarea)
         self.Mostrar = True
 
+        #controles para hacer un tag
+        self.Labeltag = ft.CircleAvatar(max_radius=5,bgcolor= ft.colors.RED_200)
+
     
-        elementos_fila = ft.Row(controls=[self.check,self.label,self.btn])
+        elementos_fila = ft.Row(controls=[self.check,self.btn,self.Labeltag,self.label])
 
         self.Contenedor = ft.Container(
             content = elementos_fila,
@@ -57,8 +60,18 @@ class Tarea(ft.Column):
         #cosas para la descripcion mas detallada
         self.descripcionDetallada = ft.TextField(label="Describe tu tarea",border_color=ft.colors.RED_50,multiline= True)
         self.Icono = ft.Icon(name=  ft.icons.EDIT_NOTE)
-        self.labeldesc = ft.Text("Descripcion:")
-        self.TituloTarea = ft.Row(controls=[self.Icono,self.labeldesc])
+        self.labeldesc = ft.Text("Nivel de \n preocupacion:")
+        self.dropdown = ft.Dropdown(
+            label = "Preocupacion",
+            border_color= ft.colors.RED_50,
+            
+            options=[
+                ft.dropdown.Option("No importante",on_click= lambda e:self.DropdownOptions("no importante")),
+                ft.dropdown.Option("Importante",on_click= lambda e:self.DropdownOptions("importante")),
+                ft.dropdown.Option("Urgente",on_click= lambda e:self.DropdownOptions("urgente"))
+            ]
+        )
+        self.TituloTarea = ft.ResponsiveRow(controls=[ft.Row(controls= [self.Icono,self.dropdown])])
         
 
 
@@ -94,12 +107,22 @@ class Tarea(ft.Column):
             self.ContenedorDetallado.visible = False
             self.update()
             self.Mostrar = True
-        
+    def DropdownOptions(self,valor):
+
+        if valor == "urgente":
+            self.Labeltag.bgcolor = ft.colors.RED_500
+        elif valor == "importante":
+            self.Labeltag.bgcolor = ft.colors.YELLOW_500
+        elif valor == "no importante":
+            self.Labeltag.bgcolor = ft.colors.GREEN_500
+        self.update()
     
 class TareaCreator(ft.ResponsiveRow):
     def __init__(self):
         super().__init__()
         self.textInput = ft.TextField(label="algo para hacer...", text_align=ft.TextAlign.LEFT)
-        self.btn = ft.IconButton(icon=ft.icons.ADD_TASK, bgcolor=ft.colors.RED_300)
+        self.btn = ft.IconButton(icon=ft.icons.ADD_TASK, bgcolor=ft.colors.RED_300,padding=5)
         
-        self.controls = [self.textInput, self.btn]
+        self.row = ft.Row(controls=[self.textInput,self.btn])
+
+        self.controls = [self.row]
