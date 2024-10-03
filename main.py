@@ -1,7 +1,7 @@
 from clases import *
 from Paginas import *
 import time
-from firebase import *
+
 
 
  #sound = AudioSegment.from_file("assets/ding.wav")
